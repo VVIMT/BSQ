@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bsq.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vivimont <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: becorbel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/07/28 14:53:27 by vivimont          #+#    #+#             */
-/*   Updated: 2016/07/26 19:38:50 by becorbel         ###   ########.fr       */
+/*   Created: 2016/07/27 11:06:45 by becorbel          #+#    #+#             */
+/*   Updated: 2016/07/27 23:06:34 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,28 @@ void	ft_square(t_struct type, int carre, int *p, char **buff)
 	int i;
 	int j;
 
-	i = 0;
-	j = 0;
-	p = tableau(&carre, &i, &j);
-	while (buff[i][0])
+	i = -1;
+	p = tableau(&carre, 0, 0);
+	while (buff[++i][0])
 	{
-		j = 0;
-		while (buff[i][j])
+		j = -1;
+		while (buff[i][++j])
 		{
 			type.x = 0;
 			if (buff[i][j] == type.empty
-					&& (i + p[0]) < type.borne_l && (j + p[0]) < type.borne_c)
+				&& (i + p[0]) < type.borne_l && (j + p[0]) < type.borne_c)
 			{
 				carre = ft_check(i, j, type, buff);
 				ft_square_bis(p, i, j, carre);
-				if (carre == type.borne_l - 1 || carre == type.borne_c - 1)
-					break ;
+				if (j + carre >= type.borne_c - 1 && type.borne_c > 1)
+					j = type.borne_c - 1;
 			}
-			j++;
 		}
-		i++;
 	}
 	ft_replace(p, type, buff);
 }
 
-int		*tableau(int *carré, int *i, int *j)
+int		*tableau(int *carré, int i, int j)
 {
 	int *tab;
 
@@ -59,8 +56,8 @@ int		*tableau(int *carré, int *i, int *j)
 	if (!tab)
 		return (NULL);
 	tab[0] = *carré;
-	tab[1] = *i;
-	tab[2] = *j;
+	tab[1] = i;
+	tab[2] = j;
 	return (tab);
 }
 

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: becorbel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/25 19:55:54 by becorbel          #+#    #+#             */
-/*   Updated: 2016/07/26 19:34:32 by becorbel         ###   ########.fr       */
+/*   Created: 2016/07/27 11:07:21 by becorbel          #+#    #+#             */
+/*   Updated: 2016/07/27 15:53:59 by becorbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,8 @@ void	ft_print(char **data)
 	j = 0;
 	while (data[i][j])
 	{
-		while (data[i][j])
-		{
-			ft_putchar(data[i][j]);
-			j++;
-		}
+		ft_putstr(data[i]);
 		ft_putchar('\n');
-		j = 0;
 		i++;
 	}
 }

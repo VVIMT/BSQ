@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   create_buff.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: becorbel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/23 11:15:14 by becorbel          #+#    #+#             */
-/*   Updated: 2016/07/26 19:36:37 by becorbel         ###   ########.fr       */
+/*   Created: 2016/07/27 18:20:40 by becorbel          #+#    #+#             */
+/*   Updated: 2016/07/27 20:17:57 by becorbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ char	*ft_create_str_stdin(t_struct *type)
 	while ((ret = read(0, buff, BUFF_SIZE)))
 	{
 		buff[ret] = '\0';
-		str = ft_strcat(str, buff[ret]);
+		str = ft_strcat(str, buff);
 	}
-	str[ret] = 0;
 	i = 0;
 	while (str[i] != '\n')
 		i++;
@@ -47,12 +46,44 @@ char	*ft_display(t_struct *type, char **argv, int k)
 	while ((ret = read(fd, buff, BUFF_SIZE)) != 0)
 	{
 		buff[ret] = '\0';
-		str = ft_strcat(str, buff[ret]);
+		str = ft_strcat(str, buff);
 	}
 	i = 0;
 	while (str[i] != '\n')
 		i++;
+	check_first_line(type, 0, buff);
 	ft_caracters(type, str, i - 1);
 	close(fd);
-	return (str + i + 1);
+	if ((str[i + 1]) != '\0')
+		return (str + i + 1);
+	return (NULL);
+}
+
+void	check_first_line(t_struct *type, int i, char *buff)
+{
+	int				j;
+	int				k;
+	char			*nb;
+
+	j = 0;
+	k = 0;
+	while (buff[j] != '\n')
+		j++;
+	k = j + 1;
+	while (buff[k])
+		if (buff[k++] == '\n')
+			i++;
+	j = j - 3;
+	nb = malloc(sizeof(char) * (j + 1));
+	k = 0;
+	while (k < j)
+	{
+		nb[k] = buff[k];
+		k++;
+	}
+	nb[k] = '\0';
+	if (ft_atoi(nb) == i && ft_atoi(nb) > 0)
+		type->valid = 1;
+	else
+		type->valid = 0;
 }

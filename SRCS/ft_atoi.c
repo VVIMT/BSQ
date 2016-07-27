@@ -1,47 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: becorbel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/27 11:07:48 by becorbel          #+#    #+#             */
-/*   Updated: 2016/07/27 15:57:10 by becorbel         ###   ########.fr       */
+/*   Created: 2016/07/27 18:22:28 by becorbel          #+#    #+#             */
+/*   Updated: 2016/07/27 18:23:14 by becorbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_header.h"
 
-int		ft_strlen(char *str)
+int		ft_atoi(char *str)
 {
 	int i;
+	int neg;
+	int result;
 
 	i = 0;
-	while (str[i])
+	result = 0;
+	neg = 0;
+	while (str[i] == '\n' || str[i] == ' ' || str[i] == '\t'
+			|| str[i] == '\v' || str[i] == '\r' || str[i] == '\f')
 		i++;
-	return (i);
-}
-
-char	*ft_strcat(char *s1, char *s2)
-{
-	int		i;
-	int		j;
-	char	*new;
-
-	i = 0;
-	j = 0;
-	new = (char*)malloc(sizeof(char) * (ft_strlen(s1) + BUFF_SIZE + 1));
-	while (s1[i])
+	if (str[i] == '-')
+		neg = 1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9' && str[i] != '\0')
 	{
-		new[i] = s1[i];
+		result = (result * 10) + str[i] - '0';
 		i++;
 	}
-	while (s2[j])
-	{
-		new[i] = s2[j];
-		i++;
-		j++;
-	}
-	free(s1);
-	return (new);
+	if (neg == 1)
+		result = result * (-1);
+	return (result);
 }

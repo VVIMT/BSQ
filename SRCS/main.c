@@ -6,7 +6,7 @@
 /*   By: becorbel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/26 19:34:57 by becorbel          #+#    #+#             */
-/*   Updated: 2016/07/26 19:35:15 by becorbel         ###   ########.fr       */
+/*   Updated: 2016/07/27 23:35:26 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main(int argc, char **argv)
 		argc1();
 	else
 	{
-		argc_diff_1(argc, argv, 0, 0);
+		argc_diff_1(NULL, argc, argv, 0);
 	}
 	return (0);
 }

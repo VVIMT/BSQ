@@ -6,7 +6,7 @@
 /*   By: becorbel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/26 19:29:11 by becorbel          #+#    #+#             */
-/*   Updated: 2016/07/26 19:30:35 by becorbel         ###   ########.fr       */
+/*   Updated: 2016/07/27 23:34:31 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int		argc1(void)
 			i++;
 	while (buff[j] != '\n')
 		j++;
-	if (x != (j + 1) * i)
+	if ((x != (j + 1) * i) || (type.valid == 0))
 	{
-		ft_putstr("map error\n");
+		write(2, "map error\n", 10);
 		return (0);
 	}
 	type.borne_l = i;
@@ -40,31 +40,38 @@ int		argc1(void)
 	return (0);
 }
 
-void	argc_diff_1(int argc, char **argv, int i, int j)
+int		argc_diff_1(char *buff, int argc, char **argv, int k)
 {
 	t_struct	type;
-	int			x;
-	int			k;
-	char		*buff;
 
-	k = 0;
-	while (++k < argc)
+	type.argc = argc;
+	while (++k < type.argc)
 	{
+		if (ft_display(&type, argv, k) == NULL)
+			write(2, "map error\n", 10);
+		if (ft_display(&type, argv, k) == NULL)
+			return (0);
 		buff = ft_display(&type, argv, k);
-		x = 0;
-		i = 0;
-		j = 0;
-		while (buff[x])
-			if (buff[x++] == '\n')
-				i++;
-		while (buff[j] != '\n')
-			j++;
-		if (x != (j + 1) * i)
-			ft_putstr("map error\n");
-		if (x != (j + 1) * i)
-			break ;
-		type.borne_l = i;
-		type.borne_c = j;
-		ft_square(type, -1, NULL, ft_read(i, j, NULL, buff));
+		yo(&type);
+		while (buff[type.y])
+			if (buff[(type.y)++] == '\n')
+				(type.i)++;
+		while (buff[type.j] != '\n')
+			(type.j)++;
+		if (type.y != (type.j + 1) * type.i || (type.valid == 0))
+			write(2, "map error\n", 10);
+		if (type.y != (type.j + 1) * type.i || (type.valid == 0))
+			return (0);
+		type.borne_l = type.i;
+		type.borne_c = type.j;
+		ft_square(type, -1, NULL, ft_read(type.i, type.j, NULL, buff));
 	}
+	return (0);
+}
+
+void	yo(t_struct *type)
+{
+	type->y = 0;
+	type->i = 0;
+	type->j = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: becorbel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/26 17:56:41 by becorbel          #+#    #+#             */
-/*   Updated: 2016/07/26 19:36:40 by becorbel         ###   ########.fr       */
+/*   Updated: 2016/07/27 18:48:26 by becorbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,8 @@ void	ft_caracters(t_struct *type, char *str, int i)
 		type->fill = str[i];
 		type->obst = str[i - 1];
 		type->empty = str[i - 2];
+		type->x = 0;
+		type->borne_l = 0;
+		type->borne_c = 0;
 	}
 }
